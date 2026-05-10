@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing IA — 04 a 10 de maio de 2026</title>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --text: #1c1917;
+    --muted: #57534e;
+    --border: #e7e5e4;
+    --accent: #0f172a;
+    --accent-soft: #f1f5f9;
+    --link: #1d4ed8;
+    --tag: #ea580c;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0c0a09;
+      --surface: #1c1917;
+      --text: #f5f5f4;
+      --muted: #a8a29e;
+      --border: #292524;
+      --accent: #f5f5f4;
+      --accent-soft: #292524;
+      --link: #93c5fd;
+      --tag: #fb923c;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tag);
+    margin: 0 0 8px;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: var(--muted);
+    margin: 0;
+    font-style: italic;
+  }
+  nav.toc {
+    background: var(--accent-soft);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 40px;
+    font-size: 14px;
+  }
+  nav.toc strong {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  nav.toc ol {
+    margin: 0;
+    padding-left: 20px;
+  }
+  nav.toc li {
+    margin: 4px 0;
+  }
+  nav.toc a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  nav.toc a:hover {
+    color: var(--link);
+  }
+  article.item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 28px 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 24px;
+  }
+  article.item .num {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--tag);
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+  article.item h2 {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 16px;
+    letter-spacing: -0.01em;
+  }
+  article.item p {
+    margin: 0 0 14px;
+  }
+  article.item p strong {
+    color: var(--text);
+  }
+  .why {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--tag);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  .why-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tag);
+    margin-bottom: 4px;
+  }
+  .sources {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+  }
+  .sources strong {
+    font-weight: 600;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+  a {
+    color: var(--link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+  }
+  @media (max-width: 480px) {
+    .wrap { padding: 20px 16px 60px; }
+    h1 { font-size: 24px; }
+    article.item { padding: 22px 20px 18px; border-radius: 12px; }
+    article.item h2 { font-size: 19px; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Briefing IA · Semana 19</p>
+  <h1>04 a 10 de maio de 2026</h1>
+  <p class="subtitle">Sinal sobre ruído. 7 destaques que mudam como alguém trabalha, decide ou olha para o mercado.</p>
+</header>
+
+<nav class="toc">
+  <strong>Nesta edição</strong>
+  <ol>
+    <li><a href="#item-1">Anthropic dobra limites do Claude Code com Colossus 1 (SpaceX)</a></li>
+    <li><a href="#item-2">GPT-5.5 Instant vira o default do ChatGPT</a></li>
+    <li><a href="#item-3">Code w/ Claude 2026: multi-agent orchestration e "Dreaming"</a></li>
+    <li><a href="#item-4">Cursor 3.3 lança "Build in Parallel" e PR workflow embutido</a></li>
+    <li><a href="#item-5">White House sinaliza vetting "estilo FDA" para modelos de fronteira</a></li>
+    <li><a href="#item-6">OpenAI e Anthropic montam JVs com Wall Street</a></li>
+    <li><a href="#item-7">Sierra capta US$ 950M a US$ 15,8B com Bret Taylor</a></li>
+  </ol>
+</nav>
+
+<article class="item" id="item-1">
+  <div class="num">01</div>
+  <h2>Anthropic dobra limites do Claude Code com Colossus 1 (SpaceX)</h2>
+  <p>Anthropic fechou acordo para usar <strong>toda</strong> a capacidade do Colossus 1 (300+ MW, 220k+ GPUs NVIDIA) e já liberou: limites de 5h do Claude Code <strong>dobraram</strong> em Pro/Max/Team/Enterprise, throttle de horário de pico foi removido em Pro/Max, e tier 1 da API Opus saltou de 30k para <strong>500k input tokens/min</strong> (e output de 8k para 80k).</p>
+  <div class="why">
+    <div class="why-label">Por que importa</div>
+    Se a sua operação ou a do seu time depende de Claude Code, a economia unitária mudou de verdade — não é release note. Vale revisitar caps internos e custos projetados. Sinal indireto: Anthropic está jogando para resolver gargalo de capacidade que vinha sendo a maior reclamação dos heavy users.
+  </div>
+  <div class="sources">
+    <strong>Fonte:</strong> <a href="https://www.anthropic.com/news/higher-limits-spacex">Anthropic — Higher usage limits and a SpaceX compute deal</a>
+  </div>
+</article>
+
+<article class="item" id="item-2">
+  <div class="num">02</div>
+  <h2>GPT-5.5 Instant vira o default do ChatGPT</h2>
+  <p>OpenAI substituiu GPT-5.3 Instant por <strong>GPT-5.5 Instant</strong> como modelo padrão (5/mai). Reduz <strong>52,5%</strong> de claims alucinados em prompts high-stakes (medicina, direito, finanças) e 37,3% em conversas que usuários haviam flagado por erros factuais — números são internos, não terceirizados. Junto saíram GPT-Realtime-2 (voz), Realtime-Translate e Realtime-Whisper na API. Plus/Pro ganham memória cruzada com Gmail e arquivos.</p>
+  <div class="why">
+    <div class="why-label">Por que importa</div>
+    GPT-5.3 Instant fica disponível por 3 meses para pagantes, mas o default muda o comportamento da maioria dos seus usuários, clientes e funcionários a partir de já. Se sua empresa publica conteúdo via ChatGPT ou tem fluxo onde alucinação custa caro, vale rerodar evals nesta semana.
+  </div>
+  <div class="sources">
+    <strong>Fontes:</strong>
+    <a href="https://openai.com/index/gpt-5-5-instant/">OpenAI — GPT-5.5 Instant</a> ·
+    <a href="https://techcrunch.com/2026/05/05/openai-releases-gpt-5-5-instant-a-new-default-model-for-chatgpt/">TechCrunch</a>
+  </div>
+</article>
+
+<article class="item" id="item-3">
+  <div class="num">03</div>
+  <h2>Code w/ Claude 2026: agentes gerenciados com multi-agent orchestration e "Dreaming"</h2>
+  <p>Na conferência (6/mai), Anthropic anunciou três adições aos Managed Agents: <strong>multi-agent orchestration</strong> (frotas de agentes para tarefas complexas), <strong>outcomes</strong> (definir o que é sucesso e deixar Claude iterar até bater), e <strong>"Dreaming"</strong> (Claude inspeciona sessões anteriores, identifica o que perdeu e se auto-melhora). Claude Code também ganhou suporte a git worktrees como cidadão de primeira classe e filtros em tempo real para <code>/skills</code> e <code>/plugin</code>.</p>
+  <div class="why">
+    <div class="why-label">Por que importa</div>
+    Sai a abstração de "um agente, uma task" e entra a de frotas com critério de sucesso declarado. Para fundadores, é o sinal de que o paradigma de orquestração está se padronizando — quem está pensando em agente como "wrapper de chat" já está atrasado.
+  </div>
+  <div class="sources">
+    <strong>Fontes:</strong>
+    <a href="https://simonwillison.net/2026/May/6/code-w-claude-2026/">Simon Willison — Live blog Code w/ Claude 2026</a> ·
+    <a href="https://code.claude.com/docs/en/whats-new">Claude Code What's New</a>
+  </div>
+</article>
+
+<article class="item" id="item-4">
+  <div class="num">04</div>
+  <h2>Cursor 3.3 lança "Build in Parallel" e PR workflow embutido</h2>
+  <p>Cursor 3.3 (7/mai) trouxe execução paralela de planos via subagentes assíncronos (com dependências respeitadas), uma nova experiência de revisão de PR (Reviews/Commits/Changes em tabs dentro do editor), quick action para <strong>dividir mudanças em múltiplos PRs</strong> lógicos automaticamente, e quick-action pills para skills mais usadas.</p>
+  <div class="why">
+    <div class="why-label">Por que importa</div>
+    O split-into-PRs ataca uma das maiores dores reais de quem usa AI coding em produção — PRs gigantes que ninguém revisa direito. Junto com parallel agents, são features que mudam o fluxo diário de devs sêniores, não brinquedo de demo.
+  </div>
+  <div class="sources">
+    <strong>Fonte:</strong>
+    <a href="https://cursor.com/changelog">Cursor changelog</a>
+  </div>
+</article>
+
+<article class="item" id="item-5">
+  <div class="num">05</div>
+  <h2>White House sinaliza vetting "estilo FDA" para modelos de fronteira</h2>
+  <p>Kevin Hassett (NEC) confirmou (6-7/mai) que a Casa Branca prepara executive order para criar processo de avaliação obrigatório de modelos antes do release, comparando ao FDA para drogas. O gatilho explícito é o <strong>Claude Mythos Preview</strong> — modelo que Anthropic decidiu não tornar GA por ter encontrado milhares de zero-days em browsers e SOs em poucas semanas, e que é o primeiro a passar pela trilha "The Last Ones" da AISI (UK).</p>
+  <div class="why">
+    <div class="why-label">Por que importa</div>
+    Sai de discussão acadêmica e entra em provável EO em "duas semanas" segundo a fonte. Se sua startup ou produto roda sobre modelos de fronteira nos EUA, o calendário regulatório de 2026 acabou de acelerar. Vale começar a mapear obrigações potenciais.
+  </div>
+  <div class="sources">
+    <strong>Fontes:</strong>
+    <a href="https://www.bloomberg.com/news/articles/2026-05-06/white-house-preps-order-to-boost-ai-security-hassett-says">Bloomberg</a> ·
+    <a href="https://red.anthropic.com/2026/mythos-preview/">Anthropic — Claude Mythos Preview</a>
+  </div>
+</article>
+
+<article class="item" id="item-6">
+  <div class="num">06</div>
+  <h2>OpenAI e Anthropic montam JVs com Wall Street para virar serviço enterprise</h2>
+  <p>Em 4-5/mai, ambos anunciaram joint ventures separados, com modelo de <strong>forward-deployed engineering</strong> (engenheiros embedados no cliente). OpenAI levantou US$ 4B a um valuation de US$ 10B na "The Deployment Company" com TPG, Brookfield, Advent e Bain Capital. Anthropic levantou US$ 1,5B com Blackstone, Goldman Sachs e Hellman &amp; Friedman. Ambos os JVs já estão em conversas para <strong>adquirir consultorias</strong> que ajudam empresas a deployar IA.</p>
+  <div class="why">
+    <div class="why-label">Por que importa</div>
+    As duas frontier labs decidiram que vender API + chat não é suficiente para capturar o budget enterprise — precisam ir até o site do cliente. Para SaaS B2B, três efeitos: <em>(i)</em> você tem novos competidores na conversa de "AI integrations" com seu cliente; <em>(ii)</em> consultorias de IA viram alvo de M&amp;A; <em>(iii)</em> o pricing power das frontier labs sobre serviços profissionais aumenta.
+  </div>
+  <div class="sources">
+    <strong>Fontes:</strong>
+    <a href="https://techcrunch.com/2026/05/04/anthropic-and-openai-are-both-launching-joint-ventures-for-enterprise-ai-services/">TechCrunch</a> ·
+    <a href="https://www.bloomberg.com/news/articles/2026-05-04/openai-finalizes-10-billion-joint-venture-with-pe-firms-to-deploy-ai">Bloomberg</a>
+  </div>
+</article>
+
+<article class="item" id="item-7">
+  <div class="num">07</div>
+  <h2>Sierra capta US$ 950M a US$ 15,8B com Bret Taylor — agentes enterprise viraram a thesis</h2>
+  <p>Liderado por Tiger Global e GV, fechou o triplo do valuation de 18 meses atrás. <strong>40% da Fortune 50 já são clientes</strong>, ARR cruzou US$ 150M, e o produto avançou de "FAQ inteligente" para mortgage origination, claims de seguro e ciclo de receita em healthcare. Em abril lançaram <strong>Ghostwriter</strong> — agente que cria outros agentes a partir de descrição em linguagem natural.</p>
+  <div class="why">
+    <div class="why-label">Por que importa</div>
+    Combinado com #6, sinal forte de que o vetor 2026 é "agente vertical embedded no workflow", não copilot genérico. Para fundadores: o valuation cap por receita já está em ~100x, mas só para players que conseguem provar serving real em fluxo crítico. Para GMs de SaaS: Sierra agora ataca diretamente o budget de CX e operations — vale mapear se está no seu pitch de cliente.
+  </div>
+  <div class="sources">
+    <strong>Fontes:</strong>
+    <a href="https://techcrunch.com/2026/05/04/sierra-raises-950m-as-the-race-to-own-enterprise-ai-gets-serious/">TechCrunch</a> ·
+    <a href="https://siliconangle.com/2026/05/04/ai-agent-startup-sierra-valued-15b-new-950m-funding-round/">SiliconANGLE</a>
+  </div>
+</article>
+
+<footer>
+  Gerado em 10/05/2026 · 7 itens · Filtro: sinal sobre ruído
+</footer>
+
+</div>
+</body>
+</html>
