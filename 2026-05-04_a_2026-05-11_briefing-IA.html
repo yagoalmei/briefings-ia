@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Briefing IA — Semana 20 · 2026</title>
+<style>
+:root{--bg:#fafaf9;--surface:#fff;--text:#1c1917;--muted:#57534e;--border:#e7e5e4;--accent:#ea580c;--soft:#f1f5f9;--link:#1d4ed8}
+@media(prefers-color-scheme:dark){:root{--bg:#0c0a09;--surface:#1c1917;--text:#f5f5f4;--muted:#a8a29e;--border:#292524;--accent:#fb923c;--soft:#292524;--link:#93c5fd}}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+.wrap{max-width:760px;margin:0 auto;padding:32px 20px 80px}
+header{margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.eyebrow{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 12px}
+h1{font-size:32px;line-height:1.2;margin:0 0 8px;letter-spacing:-0.01em}
+.subtitle{font-style:italic;color:var(--muted);margin:0;font-size:15px}
+.toc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin:0 0 36px}
+.toc-title{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 10px}
+.toc ol{margin:0;padding-left:22px}
+.toc li{margin:4px 0;font-size:14px}
+.toc a{color:var(--link);text-decoration:none}
+.toc a:hover{text-decoration:underline}
+article.item{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;scroll-margin-top:20px}
+.item-num{display:inline-block;background:var(--soft);color:var(--muted);font-size:12px;letter-spacing:0.1em;font-weight:700;padding:3px 9px;border-radius:6px;margin-bottom:10px}
+article.item h2{font-size:20px;line-height:1.3;margin:0 0 12px;letter-spacing:-0.01em}
+article.item p{margin:0 0 12px;font-size:15px}
+article.item p strong{font-weight:600}
+.why{background:var(--soft);border-left:3px solid var(--accent);padding:14px 16px;border-radius:6px;margin:14px 0}
+.why-title{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px}
+.why p{margin:0;font-size:14px}
+.sources{font-size:13px;color:var(--muted);margin-top:14px}
+.sources a{color:var(--link);text-decoration:none}
+.sources a:hover{text-decoration:underline}
+footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:13px}
+footer a{color:var(--link);text-decoration:none}
+.vote-bar{display:flex;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--border);align-items:center;flex-wrap:wrap}
+.vote-bar .lbl{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-right:8px}
+.vote-btn{background:var(--soft);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:16px;cursor:pointer;transition:all 0.15s;font-family:inherit}
+.vote-btn:hover{transform:scale(1.08)}
+.vote-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.vote-status{font-size:12px;color:var(--muted);margin-left:auto}
+.vote-form{margin-top:10px;display:none}
+.vote-form.open{display:block}
+.vote-form textarea{width:100%;min-height:60px;padding:8px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:13px;background:var(--bg);color:var(--text);resize:vertical}
+.vote-form button{margin-top:6px;background:var(--accent);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.nickname-prompt{position:fixed;bottom:20px;right:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,0.15);max-width:280px;z-index:100;display:none}
+.nickname-prompt.open{display:block}
+.nickname-prompt p{margin:0 0 8px;font-size:13px}
+.nickname-prompt input{width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-family:inherit;font-size:13px;margin-bottom:8px}
+.nickname-prompt button{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-right:6px}
+.nickname-prompt button.skip{background:var(--soft);color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">BRIEFING IA · SEMANA 20 · 2026</p>
+  <h1>Semana de 04 a 11 de maio</h1>
+  <p class="subtitle">Seis movimentos que importam pra quem decide ou opera com IA: Anthropic empilhando produto e compute, OpenAI trocando o motor default do ChatGPT, e Big Tech jogando vertical específico de saúde.</p>
+</header>
+
+<nav class="toc">
+  <p class="toc-title">Nesta edição</p>
+  <ol>
+    <li><a href="#item-01">Anthropic libera Opus 4.7 + integrações Microsoft 365 + Claude Design</a></li>
+    <li><a href="#item-02">Anthropic dobra limites de Claude Code e API com compute da SpaceX/xAI</a></li>
+    <li><a href="#item-03">OpenAI promove GPT-5.5 Instant como default — 52% menos hallucinations</a></li>
+    <li><a href="#item-04">ChatGPT lança Memory Sources com controle de transparência</a></li>
+    <li><a href="#item-05">ChatGPT Workspace Agents disponível para Enterprise com EKM</a></li>
+    <li><a href="#item-06">ChatGPT for Clinicians estreia versão gratuita verificada com CME credits</a></li>
+  </ol>
+</nav>
+
+<article class="item" id="item-01" data-item-id="01">
+  <span class="item-num">01</span>
+  <h2>Anthropic libera Opus 4.7 + integrações Microsoft 365 + Claude Design</h2>
+  <p>Em 5 de maio, a Anthropic anunciou o <strong>Claude Opus 4.7</strong> com 64,37% no benchmark Vals AI Finance Agent, lançou dez templates de agentes para serviços financeiros, e estreou <strong>integrações nativas com Microsoft 365</strong> (Excel, PowerPoint e Word, com Outlook em breve). Também lançou o <strong>Claude Design</strong>, ferramenta experimental que transforma descrições em linguagem natural em designs, apresentações e protótipos.</p>
+  <div class="why">
+    <p class="why-title">Por que importa</p>
+    <p>Workflow de finance/ops integra Claude direto nos apps Office sem orquestração intermediária — é a primeira vez que uma AI lab tem add-ons oficiais da Microsoft side-by-side com Copilot. Claude Design abre frente nova competindo com Figma+v0+Lovable. Pra quem usa Anthropic em produto, vale revisar prompts financeiros aproveitando o boost do Opus 4.7.</p>
+  </div>
+  <p class="sources">Fonte: <a href="https://releasebot.io/updates/anthropic">Anthropic Release Notes</a></p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<article class="item" id="item-02" data-item-id="02">
+  <span class="item-num">02</span>
+  <h2>Anthropic dobra limites de Claude Code e API com compute da SpaceX/xAI</h2>
+  <p>Em 6 de maio, a Anthropic <strong>dobrou os limites de uso de 5 horas</strong> para planos Pro, Max, Team e Enterprise do Claude Code e Claude API, e <strong>removeu reduções de horas de pico</strong>. Habilitado por parceria com a SpaceX que dá acesso à totalidade do <strong>Colossus 1</strong> (220.000 GPUs NVIDIA, 300+ MW) em até um mês.</p>
+  <div class="why">
+    <p class="why-title">Por que importa</p>
+    <p>Efeito prático imediato: quem usa Claude Code em produção ganha 2x mais capacidade sem upgrade de plano. Times que tinham throttling em horas de pico (especialmente fuso UTC-3 vs operações globais) recuperam previsibilidade. Sinaliza também que a Anthropic não vai ser limitada por compute no próximo ciclo — diferencial competitivo vs labs que dependem só do AWS/Azure/GCP.</p>
+  </div>
+  <p class="sources">Fonte: <a href="https://jls42.org/pt/news/ia-actualites-07-may-2026">JLS Blog</a></p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<article class="item" id="item-03" data-item-id="03">
+  <span class="item-num">03</span>
+  <h2>OpenAI promove GPT-5.5 Instant como default — 52% menos hallucinations</h2>
+  <p>Em 5 de maio, OpenAI substituiu <strong>GPT-5.3 Instant pelo GPT-5.5 Instant</strong> como modelo default do ChatGPT para todos os usuários. Em avaliações internas, o novo modelo produziu <strong>52,5% menos alegações alucinadas em prompts de alto risco</strong> (medicina, direito, finanças).</p>
+  <div class="why">
+    <p class="why-title">Por que importa</p>
+    <p>Quem usa ChatGPT em workflows críticos ganha qualidade sem upgrade de plano. Setores high-stakes (jurídico, financeiro, médico) que evitavam usar AI default por medo de alucinação têm agora um bar mais alto. Pra produtos construídos sobre ChatGPT API: vale re-rodar evals porque o comportamento mudou — alguns prompts podem precisar ajuste.</p>
+  </div>
+  <p class="sources">Fontes: <a href="https://openai.com/index/gpt-5-5-instant/">OpenAI</a>, <a href="https://techcrunch.com/2026/05/05/openai-releases-gpt-5-5-instant-a-new-default-model-for-chatgpt/">TechCrunch</a></p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<article class="item" id="item-04" data-item-id="04">
+  <span class="item-num">04</span>
+  <h2>ChatGPT lança Memory Sources com controle de transparência</h2>
+  <p>OpenAI introduziu <strong>Memory Sources</strong> em todos os modelos do ChatGPT. Quando uma resposta é personalizada, o usuário <strong>vê exatamente qual contexto foi usado</strong> (memórias salvas, chats anteriores) e pode deletar ou corrigir o que está desatualizado.</p>
+  <div class="why">
+    <p class="why-title">Por que importa</p>
+    <p>É a primeira vez que uma big tech entrega transparência operacional sobre personalização de AI consumer. Resolve dois problemas simultâneos: privacidade (controle do usuário) e qualidade (memórias erradas degradam resposta). Para legal/compliance: facilita defesa em GDPR/LGPD ("usuário tem visibilidade"). Vai forçar Google/Anthropic a responder com features equivalentes.</p>
+  </div>
+  <p class="sources">Fonte: <a href="https://help.openai.com/en/articles/6825453-chatgpt-release-notes">ChatGPT Release Notes</a></p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<article class="item" id="item-05" data-item-id="05">
+  <span class="item-num">05</span>
+  <h2>ChatGPT Workspace Agents disponível para Enterprise com EKM</h2>
+  <p>ChatGPT <strong>Workspace Agents</strong> agora estão disponíveis em workspaces ChatGPT Enterprise com <strong>Enterprise Key Management</strong>. Permite construir e usar agentes para tarefas repetitivas e workflows de negócio através de apps conectados, incluindo ChatGPT e Slack.</p>
+  <div class="why">
+    <p class="why-title">Por que importa</p>
+    <p>Esse era o bloqueador final pra grandes empresas adotarem ChatGPT como camada de automação — IT/security exigia controle de chaves próprias. Com EKM, a tese de "ChatGPT como sistema operacional de workflows" fica concreta. Para quem vende SaaS B2B: integração com ChatGPT via apps conectados é canal de distribuição novo. Pra times de RevOps/SalesOps: vale prototipar agente de qualificação de lead.</p>
+  </div>
+  <p class="sources">Fonte: <a href="https://help.openai.com/en/articles/10128477-chatgpt-enterprise-edu-release-notes">ChatGPT Enterprise Release Notes</a></p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<article class="item" id="item-06" data-item-id="06">
+  <span class="item-num">06</span>
+  <h2>ChatGPT for Clinicians estreia versão gratuita verificada com CME credits</h2>
+  <p>OpenAI lançou <strong>ChatGPT for Clinicians</strong>, versão gratuita para <strong>clínicos verificados nos EUA</strong>, com clinical search, citations, reusable skills, deep medical research, documentation help e <strong>CME credits</strong> (educação médica continuada).</p>
+  <div class="why">
+    <p class="why-title">Por que importa</p>
+    <p>É a estratégia de OpenAI saindo do horizontal "AI pra todos" pro vertical "AI especializada com loop de credibilidade". Free + CME credits cria flywheel: médicos usam, ganham créditos pra licença, viram advogados do produto. Sinaliza que big techs vão atacar verticais regulados (health, legal, finance) com versões gratuitas + credenciamento — vai pressionar quem vende SaaS vertical "AI-powered" sem essas pontes.</p>
+  </div>
+  <p class="sources">Fonte: <a href="https://help.openai.com/en/articles/6825453-chatgpt-release-notes">ChatGPT Release Notes</a></p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<footer>
+  <p>Briefing IA · Briefing semanal · <a href="https://yagoalmei.github.io/briefings-ia/">Ver todas as edições</a></p>
+</footer>
+
+</div>
+
+<div class="nickname-prompt" id="nicknamePrompt">
+  <p>Primeira vez por aqui. Quer se identificar?</p>
+  <input type="text" id="nicknameInput" placeholder="Apelido (opcional)" maxlength="60">
+  <button id="nicknameSave">Salvar</button>
+  <button class="skip" id="nicknameSkip">Ficar anônimo</button>
+</div>
+<script>
+(function(){
+  const VOTE_CONFIG = {
+    workerUrl: 'https://radar-mercado-feedback.yagoclaude.workers.dev',
+    repo: 'briefings-ia',
+    week: '2026-W20',
+    issue: 2
+  };
+
+  let uuid = localStorage.getItem('rm_uuid');
+  if (!uuid) {
+    uuid = 'u_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+    localStorage.setItem('rm_uuid', uuid);
+  }
+  let nickname = localStorage.getItem('rm_nickname') || '';
+  let askedNickname = localStorage.getItem('rm_asked_nickname') === '1';
+
+  function showNicknamePrompt() {
+    if (askedNickname) return;
+    document.getElementById('nicknamePrompt').classList.add('open');
+  }
+  document.getElementById('nicknameSave').addEventListener('click', () => {
+    const v = document.getElementById('nicknameInput').value.trim();
+    if (v) { nickname = v; localStorage.setItem('rm_nickname', v); }
+    localStorage.setItem('rm_asked_nickname', '1');
+    askedNickname = true;
+    document.getElementById('nicknamePrompt').classList.remove('open');
+  });
+  document.getElementById('nicknameSkip').addEventListener('click', () => {
+    localStorage.setItem('rm_asked_nickname', '1');
+    askedNickname = true;
+    document.getElementById('nicknamePrompt').classList.remove('open');
+  });
+
+  document.querySelectorAll('article.item').forEach(art => {
+    const id = art.dataset.itemId;
+    const prev = localStorage.getItem('rm_vote_' + VOTE_CONFIG.repo + '_' + VOTE_CONFIG.week + '_' + id);
+    if (prev) {
+      art.querySelectorAll('.vote-btn').forEach(b => {
+        if (b.dataset.voto === prev) b.classList.add('active');
+      });
+      art.querySelector('.vote-status').textContent = 'Você votou ' + prev;
+    }
+  });
+
+  document.querySelectorAll('.vote-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const art = btn.closest('article.item');
+      const voto = btn.dataset.voto;
+      const form = art.querySelector('.vote-form');
+      art.querySelectorAll('.vote-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      form.dataset.voto = voto;
+      form.classList.add('open');
+      const ta = form.querySelector('textarea');
+      ta.placeholder = (voto === '🚫')
+        ? 'Por que não? (obrigatório, 3 caracteres mínimo)'
+        : 'Comentário (opcional)';
+      ta.focus();
+      if (!askedNickname) setTimeout(showNicknamePrompt, 500);
+    });
+  });
+
+  document.querySelectorAll('.submit-vote').forEach(sb => {
+    sb.addEventListener('click', async () => {
+      const form = sb.closest('.vote-form');
+      const art = sb.closest('article.item');
+      const voto = form.dataset.voto;
+      const motivo = form.querySelector('textarea').value.trim();
+      if (voto === '🚫' && motivo.length < 3) {
+        alert('Motivo obrigatório para 🚫'); return;
+      }
+      sb.disabled = true; sb.textContent = 'Enviando...';
+      try {
+        const r = await fetch(VOTE_CONFIG.workerUrl + '/vote', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            repo: VOTE_CONFIG.repo,
+            item_id: art.dataset.itemId,
+            voto,
+            motivo: motivo || null,
+            nickname: nickname || null,
+            uuid,
+            week: VOTE_CONFIG.week,
+            issue_number: VOTE_CONFIG.issue
+          })
+        });
+        const d = await r.json();
+        if (!d.ok) throw new Error(d.error || 'HTTP ' + r.status);
+        localStorage.setItem('rm_vote_' + VOTE_CONFIG.repo + '_' + VOTE_CONFIG.week + '_' + art.dataset.itemId, voto);
+        art.querySelector('.vote-status').textContent = 'Você votou ' + voto +  ' ✓';
+        form.classList.remove('open');
+        sb.disabled = false; sb.textContent = 'Enviar';
+      } catch (e) {
+        alert('Erro ao enviar voto: ' + e.message);
+        sb.disabled = false; sb.textContent = 'Enviar';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
