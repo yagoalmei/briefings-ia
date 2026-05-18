@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Briefing IA — Semana 21</title>
+<style>
+:root{
+  --bg:#fafaf9; --surface:#ffffff; --text:#1c1917; --muted:#57534e;
+  --border:#e7e5e4; --accent:#ea580c; --soft:#f1f5f9; --link:#1d4ed8;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0c0a09; --surface:#1c1917; --text:#f5f5f4; --muted:#a8a29e;
+    --border:#292524; --accent:#fb923c; --soft:#292524; --link:#93c5fd;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+  font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:32px 20px 80px}
+header{padding-bottom:24px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.eyebrow{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin:0 0 10px}
+h1{font-size:30px;line-height:1.18;margin:0 0 8px;letter-spacing:-0.02em;font-weight:700}
+.subtitle{margin:0;color:var(--muted);font-size:15px}
+.subtitle em{font-style:italic;color:var(--muted)}
+nav.toc{background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:18px 20px;margin:0 0 32px}
+nav.toc .toc-title{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;margin:0 0 12px}
+nav.toc ol{margin:0;padding:0 0 0 22px;font-size:15px}
+nav.toc ol li{margin:0 0 6px;color:var(--text)}
+nav.toc a{color:var(--link);text-decoration:none}
+nav.toc a:hover{text-decoration:underline}
+article.item{position:relative;background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:26px 22px 18px;margin:0 0 22px}
+article.item .num{position:absolute;top:-12px;left:20px;background:var(--accent);
+  color:#fff;font-size:11px;font-weight:800;letter-spacing:0.1em;
+  padding:5px 10px;border-radius:8px}
+article.item h2{font-size:21px;line-height:1.28;margin:6px 0 12px;
+  letter-spacing:-0.01em;font-weight:700}
+article.item p{margin:0 0 12px}
+article.item p strong{color:var(--text);font-weight:700}
+.why{background:var(--soft);border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:11px 14px;margin:14px 0;font-size:15px}
+.why .why-lbl{display:block;font-size:10px;letter-spacing:0.16em;
+  text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px}
+.sources{font-size:13px;color:var(--muted);margin-top:14px}
+.sources a{color:var(--link);text-decoration:none}
+.sources a:hover{text-decoration:underline}
+.sources strong{color:var(--text);font-weight:700;margin-right:6px}
+footer{padding-top:28px;border-top:1px solid var(--border);
+  color:var(--muted);font-size:13px;margin-top:36px;text-align:center}
+footer p{margin:4px 0}
+
+.vote-bar{display:flex;gap:8px;margin-top:14px;padding-top:12px;
+  border-top:1px solid var(--border);align-items:center;flex-wrap:wrap}
+.vote-bar .lbl{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;margin-right:8px}
+.vote-btn{background:var(--soft);border:1px solid var(--border);
+  border-radius:8px;padding:6px 12px;font-size:16px;cursor:pointer;
+  transition:all 0.15s;font-family:inherit}
+.vote-btn:hover{transform:scale(1.08)}
+.vote-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.vote-status{font-size:12px;color:var(--muted);margin-left:auto}
+.vote-form{margin-top:10px;display:none}
+.vote-form.open{display:block}
+.vote-form textarea{width:100%;min-height:60px;padding:8px;
+  border:1px solid var(--border);border-radius:8px;font-family:inherit;
+  font-size:16px;background:var(--bg);color:var(--text);resize:vertical}
+.vote-form button{margin-top:6px;background:var(--accent);color:#fff;
+  border:none;border-radius:6px;padding:6px 14px;font-size:13px;
+  font-weight:600;cursor:pointer;font-family:inherit}
+.nickname-prompt{position:fixed;bottom:20px;right:20px;background:var(--surface);
+  border:1px solid var(--border);border-radius:12px;padding:16px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.15);max-width:280px;z-index:100;display:none}
+.nickname-prompt.open{display:block}
+.nickname-prompt p{margin:0 0 8px;font-size:13px}
+.nickname-prompt input{width:100%;padding:6px 8px;border:1px solid var(--border);
+  border-radius:6px;background:var(--bg);color:var(--text);font-family:inherit;
+  font-size:13px;margin-bottom:8px}
+.nickname-prompt button{background:var(--accent);color:#fff;border:none;
+  border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;
+  cursor:pointer;font-family:inherit;margin-right:6px}
+.nickname-prompt button.skip{background:var(--soft);color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">BRIEFING IA · SEMANA 21 · 2026</p>
+  <h1>Semana de 11 a 17 de maio</h1>
+  <p class="subtitle"><em>Semana das mudanças estruturais: OpenAI e Anthropic empurram IA para o canal de consultoria, pricing de agentes vira API por minuto, Cursor e Claude Code consolidam frota paralela como fluxo padrão.</em></p>
+</header>
+
+<nav class="toc">
+  <p class="toc-title">Nesta edição</p>
+  <ol>
+    <li><a href="#item-01">OpenAI cria Deployment Company; Anthropic responde com fundo de US$ 1,5 bi via Goldman e Blackstone</a></li>
+    <li><a href="#item-02">Anthropic decoupla cota de agente da cota humana — efeito direto em quem está montando produto sobre Claude</a></li>
+    <li><a href="#item-03">OpenAI dobra preço da API GPT-5.5 e encerra fine-tuning</a></li>
+    <li><a href="#item-04">Cursor 3.4, Claude Code worktree.bgIsolation e Mistral Workflows — frota paralela vira padrão de eng</a></li>
+    <li><a href="#item-05">xAI Grok lança Connectors para SharePoint, Notion, GitHub e Linear</a></li>
+    <li><a href="#item-06">EU AI Act Omnibus: acordo político estende prazos de high-risk e prepara regra de deepfake íntimo</a></li>
+    <li><a href="#item-07">Claude Mythos Preview lidera SWE-bench Pro com 77,8% — sinal do próximo salto da Anthropic</a></li>
+  </ol>
+</nav>
+
+<article class="item" id="item-01" data-item-id="01">
+  <span class="num">01</span>
+  <h2>OpenAI cria Deployment Company; Anthropic responde com fundo de US$ 1,5 bi via Goldman e Blackstone</h2>
+  <p>Em 11 de maio a OpenAI lançou a <strong>OpenAI Deployment Company</strong>, um veículo de implementação em parceria com 19 firmas de investimento e consultorias (TPG na liderança, com Advent, Bain Capital e Brookfield co-liderando; <strong>McKinsey, Bain & Company e Capgemini</strong> como founding partners). No pacote, a OpenAI fez aquihire da <strong>Tomoro</strong>, consultoria de IA aplicada com cerca de 150 Forward Deployed Engineers. Na mesma semana, a Anthropic anunciou parceria com <strong>Goldman Sachs e Blackstone</strong> para uma firma de US$ 1,5 bilhão dedicada a acelerar adoção corporativa de Claude em centenas de empresas. Os dois movimentos formalizam o que vinha em ritmo informal desde 2025: consultoria virou canal de distribuição de IA.</p>
+  <div class="why">
+    <span class="why-lbl">Por que importa</span>
+    Para quem vende SaaS B2B no Brasil, o caminho de competição pelo "AI advisor da casa" agora passa por integradores globais. Decisão prática: avaliar se ancorar produto numa stack (Anthropic ou OpenAI) compra acesso a esse canal — ou se isolar-se fica mais caro do que parece. Para a startup, ler como sinal de que enterprise paying logo terá expectativa de "AI deployment partner" no RFP.
+  </div>
+  <p class="sources"><strong>Fontes:</strong>
+    <a href="https://openai.com/index/openai-launches-the-deployment-company/" target="_blank" rel="noopener">OpenAI · Deployment Company</a> ·
+    <a href="https://www.cnbc.com/2026/05/11/open-ai-dresser-enterprise-business.html" target="_blank" rel="noopener">CNBC · Enterprise tipping point</a> ·
+    <a href="https://aitoolsrecap.com/Blog/MayNews2026.aspx" target="_blank" rel="noopener">AIToolsRecap · maio 2026</a>
+  </p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<article class="item" id="item-02" data-item-id="02">
+  <span class="num">02</span>
+  <h2>Anthropic decoupla cota de agente da cota humana — efeito direto em quem está montando produto sobre Claude</h2>
+  <p>A Anthropic confirmou que, a partir de <strong>15 de junho de 2026</strong>, separa em duas cotas distintas o uso de Claude por humano (Pro, Max, Enterprise seats) e o uso programático (Agent SDK, plugins, integrações server-to-server). Uso programático sai das assinaturas atuais e passa a ser cobrado por <strong>créditos mensais fixos no modelo API</strong>. Em paralelo, contratos Enterprise antigos com "premium seats" e mensalidade flat agora aparecem como <em>legacy</em> — novos contratos cobram seat + tokens API por cima. Junte com o tokenizer novo do Opus 4.7 que gera até 35% mais tokens para o mesmo input: o preço de tabela não mudou, a conta sim.</p>
+  <div class="why">
+    <span class="why-lbl">Por que importa</span>
+    Se você tem agentes rodando sobre Claude (n8n, Slackbots, automações), precisa refazer a conta de COGS antes de 15/jun. Quem cobra do cliente por uso/usuário precisa decidir se repassa, se absorve ou se troca de modelo. Próximo passo prático: pedir ao financeiro projeção de tokens automatizados dos últimos 30 dias × pricing API e comparar com a fatura atual.
+  </div>
+  <p class="sources"><strong>Fontes:</strong>
+    <a href="https://kingy.ai/ai/usage-based-billing-no-flat-rate-why-anthropics-2026-pricing-shift-changes-everything-for-claude-users/" target="_blank" rel="noopener">Kingy AI · Anthropic pricing pivot</a> ·
+    <a href="https://www.finout.io/blog/claude-opus-4.7-pricing-the-real-cost-story-behind-the-unchanged-price-tag" target="_blank" rel="noopener">Finout · Opus 4.7 tokenizer</a> ·
+    <a href="https://www.cnbc.com/2026/04/17/ai-tokens-anthropic-openai-nvidia.html" target="_blank" rel="noopener">CNBC · token economics</a>
+  </p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<article class="item" id="item-03" data-item-id="03">
+  <span class="num">03</span>
+  <h2>OpenAI dobra preço da API GPT-5.5 e encerra fine-tuning</h2>
+  <p>Em maio a OpenAI <strong>dobrou o preço de API do GPT-5.5 para US$ 5/US$ 30 por milhão de tokens</strong> (in/out) e formalizou o <strong>encerramento da API de fine-tuning</strong>. Em paralelo, o GitHub Copilot anunciou migração para billing por token efetiva em 1º de junho — alteração que cascateia em todo time que usa Copilot por seat. Movimento simétrico ao da Anthropic na semana anterior: a era do "subscription para tudo" acabou, todo mundo está reescrevendo a tabela.</p>
+  <div class="why">
+    <span class="why-lbl">Por que importa</span>
+    Quem tem GPT-5.5 em produção precisa revisar custo unitário esta semana — não no fim do trimestre. Para times de eng usando Copilot, o orçamento de ferramenta de produtividade vai virar variável: pedir contagem de tokens dos últimos 30 dias por dev e simular o novo modelo antes de junho. Sinal de mercado: usage-based pricing é o novo default de IA enterprise.
+  </div>
+  <p class="sources"><strong>Fontes:</strong>
+    <a href="https://explainx.ai/blog/openai-gpt-55-pricing-fine-tuning-api-wind-down-2026" target="_blank" rel="noopener">ExplainX · fine-tuning sunset</a> ·
+    <a href="https://medium.com/@dev_tips/the-ai-price-hike-that-never-showed-up-on-the-pricing-page-your-bill-went-up-27-anyway-48a61265f3f3" target="_blank" rel="noopener">Medium · price hike invisível</a> ·
+    <a href="https://blog.4sapi.com/blog/anthropic-openai-ai-pricing-war" target="_blank" rel="noopener">4sAPI · pricing war</a>
+  </p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<article class="item" id="item-04" data-item-id="04">
+  <span class="num">04</span>
+  <h2>Cursor 3.4, Claude Code worktree.bgIsolation e Mistral Workflows — frota paralela vira padrão de eng</h2>
+  <p>O <strong>Cursor 3.4</strong>, lançado em 13 de maio, traz configuração de "dev environment" para orquestrar frotas de agentes rodando em paralelo, em cima do já existente Shadow Workspace. O <strong>Claude Code</strong> da semana adicionou <code>worktree.bgIsolation</code> (sessões de fundo editam a working copy direto, sem EnterWorktree), <strong>plugin dependency enforcement</strong> e projeção de custo de contexto no <code>/plugin</code>. A <strong>Mistral</strong>, fora do Big Three americano, lançou o <strong>Workflows</strong> (orquestração de agentes em cima do Temporal), já com ASML, La Banque Postale, France Travail e CMA-CGM rodando milhões de execuções/dia, e o <strong>Medium 3.5</strong> (128B dense, MIT, 256k de contexto, 77,6% no SWE-Bench Verified). A convergência fica clara: a unidade básica de produção em eng deixa de ser "uma sessão de IA + dev" e passa a ser "um pool de agentes paralelos sob supervisão".</p>
+  <div class="why">
+    <span class="why-lbl">Por que importa</span>
+    Para o GM/founder isso significa repensar produtividade por engenheiro com base em concorrência de agentes, não em tempo de tela. Decisão prática: experimentar piloto interno de frota paralela em 1 squad essa quinzena (ex: Cursor 3.4 + Claude Code com bgIsolation) e medir P50 de PRs/dev/semana antes e depois. Para a startup, abre janela curta de vantagem comparativa antes que vire commodity.
+  </div>
+  <p class="sources"><strong>Fontes:</strong>
+    <a href="https://thenewstack.io/ai-coding-tool-stack/" target="_blank" rel="noopener">The New Stack · stack convergente</a> ·
+    <a href="https://releasebot.io/updates/anthropic/claude-code" target="_blank" rel="noopener">Releasebot · Claude Code maio/26</a> ·
+    <a href="https://www.implicator.ai/llm-meter-shows-mistral-gains-on-workflows-as-grok-slips-on-outage/" target="_blank" rel="noopener">Implicator · Mistral Workflows</a>
+  </p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<article class="item" id="item-05" data-item-id="05">
+  <span class="num">05</span>
+  <h2>xAI Grok lança Connectors para SharePoint, Notion, GitHub e Linear</h2>
+  <p>Em maio o xAI ativou os <strong>Connectors no Grok Web</strong>, dando ao Grok acesso direto a SharePoint, Outlook, OneDrive, Google Workspace, Notion, GitHub e Linear dentro do chat — paridade com o que ChatGPT Enterprise e Claude já oferecem. Acompanhou a release do <strong>Grok 4.3</strong> (1M de contexto, reasoning embutido, input nativo de vídeo, US$ 1,25/M input). Em paralelo, o LLM Meter da semana mostra <strong>Grok perdendo terreno</strong> (slip por outage) enquanto Mistral ganha três pontos. O xAI ainda tem a turbulência da fusão com a SpaceX e a saída de cofundadores em fevereiro pesando.</p>
+  <div class="why">
+    <span class="why-lbl">Por que importa</span>
+    Decisão prática: se sua organização padronizou em ChatGPT ou Claude por causa dos connectors, vale revisar a tese antes do próximo ciclo de licenças — o Grok agora tem o gancho enterprise que faltava, mas com risco de execução. Para quem vende SaaS, anteceder uma integração nativa com Grok pode virar diferencial em contas que estão usando X/Twitter enterprise.
+  </div>
+  <p class="sources"><strong>Fontes:</strong>
+    <a href="https://releasebot.io/updates/xai" target="_blank" rel="noopener">Releasebot · xAI maio/26</a> ·
+    <a href="https://aicostcheck.com/blog/xai-grok-pricing-guide-2026" target="_blank" rel="noopener">AI Cost Check · Grok 4.3 pricing</a> ·
+    <a href="https://www.implicator.ai/llm-meter-shows-mistral-gains-on-workflows-as-grok-slips-on-outage/" target="_blank" rel="noopener">Implicator · LLM meter</a>
+  </p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<article class="item" id="item-06" data-item-id="06">
+  <span class="num">06</span>
+  <h2>EU AI Act Omnibus: acordo político estende prazos de high-risk e prepara regra de deepfake íntimo</h2>
+  <p>Em <strong>7 de maio</strong> o Conselho da UE e o Parlamento Europeu fecharam acordo político sobre o pacote <strong>"AI Act Omnibus"</strong>, parte da agenda de simplificação digital do bloco. Os principais pontos: <strong>extensão dos prazos de conformidade para sistemas de IA de alto risco (HRAIS)</strong>, esclarecimentos sobre obrigações existentes, e introdução de regras específicas sobre conteúdo íntimo gerado por IA e CSAM (efetivas a partir de 2/dez/26). O cronograma geral do AI Act segue: aplicação plena em 2/ago/26, com obrigações de GPAI já em vigor desde ago/25. Penalidades seguem severas: até €35 mi ou 7% do faturamento global.</p>
+  <div class="why">
+    <span class="why-lbl">Por que importa</span>
+    Para SaaS brasileiro que atende clientes UE, a extensão dá fôlego operacional mas não muda o destino: até ago/26 obrigações de GPAI e copyright já valem. Decisão prática: validar se seu produto se enquadra como high-risk (RH, crédito, saúde, infra crítica) e, se sim, mapear gap de conformidade antes da janela esticada acabar. Para o GM, vale conversar com jurídico esta semana sobre exposição.
+  </div>
+  <p class="sources"><strong>Fontes:</strong>
+    <a href="https://www.consilium.europa.eu/en/press/press-releases/2026/05/07/artificial-intelligence-council-and-parliament-agree-to-simplify-and-streamline-rules/" target="_blank" rel="noopener">Conselho UE · acordo Omnibus</a> ·
+    <a href="https://www.techpolicy.press/what-the-eu-ai-omnibus-deal-changes-for-the-ai-act-and-what-lies-ahead/" target="_blank" rel="noopener">TechPolicy.Press · análise</a> ·
+    <a href="https://www.lw.com/en/insights/ai-act-update-eu-resolves-to-change-rules-and-extend-deadlines" target="_blank" rel="noopener">Latham & Watkins · prazos</a>
+  </p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<article class="item" id="item-07" data-item-id="07">
+  <span class="num">07</span>
+  <h2>Claude Mythos Preview lidera SWE-bench Pro com 77,8% — sinal do próximo salto da Anthropic</h2>
+  <p>Em 13 de maio o leaderboard do <strong>SWE-bench Pro</strong> (benchmark enterprise, 1.865 problemas, tarefas multi-arquivo de horas-a-dias) passou a ser liderado pelo <strong>Claude Mythos Preview</strong> com <strong>77,8%</strong>, seguido por Opus 4.7 Adaptive (64,3%) e GPT-5.5 (58,6%). No SWE-bench Verified (mais antigo), Mythos chegou a 93,9% — sinal de que a próxima geração da Anthropic está perto. "Mythos" é nome interno; ainda não há release date pública. Em paralelo, GPT I/O 2026 começa 19/mai com novo Gemini esperado para responder ao GPT-5.5.</p>
+  <div class="why">
+    <span class="why-lbl">Por que importa</span>
+    Se você está fechando contrato anual com fornecedor de IA, observar a curva de capacidade ajuda a calibrar lock-in: a janela de "modelo de fronteira hoje" está com meia-vida de 2-3 meses. Decisão prática para produto: arquitetar a stack para permitir troca de modelo via flag, não hard-code. Para roadmap, descontar capacidades atuais — o que parece milagre hoje será baseline no Q3.
+  </div>
+  <p class="sources"><strong>Fontes:</strong>
+    <a href="https://labs.scale.com/leaderboard/swe_bench_pro_public" target="_blank" rel="noopener">Scale · SWE-Bench Pro</a> ·
+    <a href="https://www.marktechpost.com/2026/05/15/best-ai-agents-for-software-development-ranked-a-benchmark-driven-look-at-the-current-field/" target="_blank" rel="noopener">MarkTechPost · ranking 15/mai</a> ·
+    <a href="https://www.techtimes.com/articles/316755/20260517/google-i-o-2026-keynote-opens-tuesday-new-gemini-lands-behind-mythos-gpt-55.htm" target="_blank" rel="noopener">TechTimes · I/O 2026</a>
+  </p>
+  <div class="vote-bar">
+    <span class="lbl">Sua opinião:</span>
+    <button class="vote-btn" data-voto="🔥" title="Relevante">🔥</button>
+    <button class="vote-btn" data-voto="👌" title="Ok">👌</button>
+    <button class="vote-btn" data-voto="🚫" title="Não interessa">🚫</button>
+    <span class="vote-status"></span>
+  </div>
+  <div class="vote-form">
+    <textarea placeholder="Por que? (obrigatório para 🚫, opcional nos demais)"></textarea>
+    <button class="submit-vote">Enviar</button>
+  </div>
+</article>
+
+<footer>
+  <p>Briefing IA · Edição automatizada · Semana 21 de 2026</p>
+  <p>Vote nos itens — seu motivo calibra a próxima edição.</p>
+</footer>
+</div>
+
+<div class="nickname-prompt" id="nicknamePrompt">
+  <p>Primeira vez por aqui. Quer se identificar?</p>
+  <input type="text" id="nicknameInput" placeholder="Apelido (opcional)" maxlength="60">
+  <button id="nicknameSave">Salvar</button>
+  <button class="skip" id="nicknameSkip">Ficar anônimo</button>
+</div>
+<script>
+(function(){
+  const VOTE_CONFIG = {
+    workerUrl: 'https://radar-mercado-feedback.yagoclaude.workers.dev',
+    repo: 'briefings-ia',
+    week: '2026-W21',
+    issue: 3
+  };
+
+  let uuid = localStorage.getItem('rm_uuid');
+  if (!uuid) {
+    uuid = 'u_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+    localStorage.setItem('rm_uuid', uuid);
+  }
+  let nickname = localStorage.getItem('rm_nickname') || '';
+  let askedNickname = localStorage.getItem('rm_asked_nickname') === '1';
+
+  function showNicknamePrompt() {
+    if (askedNickname) return;
+    document.getElementById('nicknamePrompt').classList.add('open');
+  }
+  document.getElementById('nicknameSave').addEventListener('click', () => {
+    const v = document.getElementById('nicknameInput').value.trim();
+    if (v) { nickname = v; localStorage.setItem('rm_nickname', v); }
+    localStorage.setItem('rm_asked_nickname', '1');
+    askedNickname = true;
+    document.getElementById('nicknamePrompt').classList.remove('open');
+  });
+  document.getElementById('nicknameSkip').addEventListener('click', () => {
+    localStorage.setItem('rm_asked_nickname', '1');
+    askedNickname = true;
+    document.getElementById('nicknamePrompt').classList.remove('open');
+  });
+
+  document.querySelectorAll('article.item').forEach(art => {
+    const id = art.dataset.itemId;
+    const prev = localStorage.getItem('rm_vote_' + VOTE_CONFIG.repo + '_' + VOTE_CONFIG.week + '_' + id);
+    if (prev) {
+      art.querySelectorAll('.vote-btn').forEach(b => {
+        if (b.dataset.voto === prev) b.classList.add('active');
+      });
+      art.querySelector('.vote-status').textContent = 'Você votou ' + prev;
+    }
+  });
+
+  async function sendVote(art, voto, motivo) {
+    art.querySelector('.vote-status').textContent = 'Enviando...';
+    try {
+      const r = await fetch(VOTE_CONFIG.workerUrl + '/vote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          repo: VOTE_CONFIG.repo,
+          item_id: art.dataset.itemId,
+          voto,
+          motivo: motivo || null,
+          nickname: nickname || null,
+          uuid,
+          week: VOTE_CONFIG.week,
+          issue_number: VOTE_CONFIG.issue
+        })
+      });
+      const d = await r.json();
+      if (!d.ok) throw new Error(d.error || 'HTTP ' + r.status);
+      localStorage.setItem('rm_vote_' + VOTE_CONFIG.repo + '_' + VOTE_CONFIG.week + '_' + art.dataset.itemId, voto);
+      art.querySelector('.vote-status').textContent = 'Você votou ' + voto + ' ✓';
+      if (!askedNickname) setTimeout(showNicknamePrompt, 500);
+      return true;
+    } catch (e) {
+      art.querySelector('.vote-status').textContent = 'Erro: ' + e.message;
+      return false;
+    }
+  }
+
+  document.querySelectorAll('.vote-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const art = btn.closest('article.item');
+      const voto = btn.dataset.voto;
+      const form = art.querySelector('.vote-form');
+      art.querySelectorAll('.vote-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (voto === '🚫') {
+        form.dataset.voto = voto;
+        form.classList.add('open');
+        const ta = form.querySelector('textarea');
+        ta.placeholder = 'Por que não? (mínimo 3 caracteres)';
+        ta.focus();
+      } else {
+        form.classList.remove('open');
+        await sendVote(art, voto, '');
+      }
+    });
+  });
+
+  document.querySelectorAll('.submit-vote').forEach(sb => {
+    sb.addEventListener('click', async () => {
+      const form = sb.closest('.vote-form');
+      const art = sb.closest('article.item');
+      const voto = form.dataset.voto;
+      const motivo = form.querySelector('textarea').value.trim();
+      if (motivo.length < 3) {
+        alert('Motivo obrigatório (mínimo 3 caracteres)');
+        return;
+      }
+      sb.disabled = true; sb.textContent = 'Enviando...';
+      const ok = await sendVote(art, voto, motivo);
+      if (ok) form.classList.remove('open');
+      sb.disabled = false; sb.textContent = 'Enviar';
+    });
+  });
+})();
+</script>
+</body>
+</html>
